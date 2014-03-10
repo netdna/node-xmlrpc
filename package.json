@@ -1,9 +1,9 @@
 { "name" : "xmlrpc"
 , "description" : "A pure JavaScript XML-RPC client and server."
 , "keywords" : [ "xml-rpc", "xmlrpc", "xml", "rpc" ]
-, "version" : "1.2.1_netdna"
+, "version" : "1.2.1"
 , "preferGlobal" : false
-, "homepage" : "https://github.com/baalexander/node-xmlrpc"
+, "homepage" : "https://github.com/netdna/node-xmlrpc"
 , "author" : "Brandon Alexander <baalexander@gmail.com> (https://github.com/baalexander)"
 , "repository" : {
     "type" : "git"
