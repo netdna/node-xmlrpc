@@ -2,11 +2,11 @@ var vows           = require('vows')
   , assert         = require('assert')
   , date_formatter = require('../lib/date_formatter')
 
+var LOCAL_DATE = new Date(2014,0,20,14,25,25);
+
 vows.describe('Date Formatter').addBatch({
   "A local date": {
-    topic: function () {
-      return new Date(2014,0,20,14,25,25)
-    }
+    topic: LOCAL_DATE
   , "when encoded": {
       "without hyphens": encodeCase({hyphens: false}, '^\\d{8}T')
     , "with hyphens": encodeCase({hyphens: true}, '^\\d{4}[-]\\d{2}[-]\\d{2}T')
@@ -37,7 +37,7 @@ vows.describe('Date Formatter').addBatch({
           assert.isString(str)
           assert.match(str, new RegExp())
         }
-      , teardown: function () { date_formatter.setOpts(); }
+      , teardown: function () { date_formatter.setOpts() }
       }
     , "to utc representation": {
         topic: function (d) {
@@ -53,7 +53,7 @@ vows.describe('Date Formatter').addBatch({
           assert.match(str, new RegExp(reStr))
         }
       , "must match the correct time": function (str) {
-          var offset = new Date().getTimezoneOffset()
+          var offset = LOCAL_DATE.getTimezoneOffset()
           var round = (offset < 0) ? 'ceil' : 'floor'
           var reStr = [
             'T[0]?'
@@ -65,7 +65,7 @@ vows.describe('Date Formatter').addBatch({
           assert.isString(str)
           assert.match(str, new RegExp(reStr))
         }
-      , teardown: function () { date_formatter.setOpts(); }
+      , teardown: function () { date_formatter.setOpts() }
       }
     }
   }
@@ -118,6 +118,7 @@ vows.describe('Date Formatter').addBatch({
   }
 }).export(module)
 
+// HELPERS
 function encodeCase (opts, reStr) {
   return {
     topic: function (d) {
@@ -129,7 +130,7 @@ function encodeCase (opts, reStr) {
       assert.isString(str)
       assert.match(str, new RegExp(reStr))
     }
-  , teardown: function () { date_formatter.setOpts(); }
+  , teardown: function () { date_formatter.setOpts() }
   }
 }
 

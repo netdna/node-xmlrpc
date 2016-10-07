@@ -129,6 +129,13 @@ vows.describe('Serializer').addBatch({
           }
         , 'contains the empty string': assertXml('good_food/string_empty_call.xml')
         }
+      , 'with a string contains emoji': {
+          topic: function () {
+              var value = new Buffer('f09f9881', 'hex').toString('utf-8')
+              return Serializer.serializeMethodCall('testMethod', [value])
+          }
+        , 'contains a smiley' : assertXml('good_food/string_emoji.xml')
+        }
       }
 
     , 'undefined' : {
@@ -212,6 +219,13 @@ vows.describe('Serializer').addBatch({
           }
         , 'contains the customType': assertXml('good_food/customtype_extended_call.xml')
       }
+    }
+  , 'utf-8 encoding': {
+      topic: function () {
+        var value = "\x46\x6F\x6F"
+        return Serializer.serializeMethodCall('testMethod', [value], 'utf-8')
+      }
+    , 'contains the encoding attribute': assertXml('good_food/encoded_call.xml')
     }
   }
 
@@ -311,6 +325,13 @@ vows.describe('Serializer').addBatch({
             return Serializer.serializeMethodResponse(value)
           }
         , 'contains the empty string': assertXml('good_food/string_empty_response.xml')
+        }
+      , 'with string contains emoji' : {
+          topic: function () {
+            var value = new Buffer('f09f9881', 'hex').toString('utf-8')
+            return Serializer.serializeMethodResponse(value)
+          }
+        , 'contains emoji': assertXml('good_food/string_emoji_response.xml')
         }
       }
 
